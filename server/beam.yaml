@@ -1,0 +1,32 @@
+app:
+  name: flask-sam2
+  python:
+    version: "3.10"
+    handler: main:app
+
+runtime:
+  cpu: 4
+  memory: 16Gi
+  gpu: a100
+  image:
+    python_version: "3.10"
+    python_packages:
+      - flask
+      - flask-cors
+      - werkzeug
+      - torch
+      - torchvision
+      - numpy
+      - pillow
+    system_packages:
+      - libgl1
+
+mounts:
+  - name: model-weights
+    path: /models
+
+include:
+  - main.py
+  - sam2/**
+  - models/**
+  - uploads/**
