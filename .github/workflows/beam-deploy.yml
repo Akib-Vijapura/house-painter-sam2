@@ -30,6 +30,9 @@ jobs:
           
       - name: download requirements.txt
         run: pip install -r server/requirements.txt
+        
+      - name: install sam2
+        run: pip install sam2
 
       - name: Login to Beam
         run: beam configure default --token ${{ secrets.BEAM_TOKEN }}
