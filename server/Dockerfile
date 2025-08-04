@@ -1,30 +1,22 @@
-FROM python:3.10-slim
+FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 
-WORKDIR /app
-
-# Install system dependencies
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libgl1 \
+    python3 python3-pip git wget curl ffmpeg libsm6 libxext6 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first to leverage Docker cache
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Create work directory
+WORKDIR /app
 
-# Copy the rest of the application (all files in the server folder)
-COPY . .
+# Copy everything
+COPY . /app
 
-# Create uploads directory
-RUN mkdir -p uploads
+# Install Python dependencies
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
 
-# Environment variables
-ENV FLASK_ENV=production
-ENV PYTHONUNBUFFERED=1
-ENV HYDRA_FULL_ERROR=1
-ENV PYTORCH_ENABLE_MPS_FALLBACK=1
-
+# Expose port
 EXPOSE 8000
 
-# Use gunicorn as production server
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "main:app"]
+# Run the Flask app
+CMD ["python3", "app.py"]
