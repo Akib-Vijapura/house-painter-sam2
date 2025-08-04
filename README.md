@@ -135,7 +135,7 @@ python3 main.py
 | POST   | `/api/upload`              | To Upload image |
 | POST   | `/api/uploads/<filename>`              | Get uploaded image |
 | POST   | `/api/masks/generate`      | Generate SAM2 masks              |
-| GET    | `/api/masks/points`       | Get mask for specific click      |
+| POST    | `/api/masks/points`       | Get mask for specific click      |
 | POST   | `/api/image/apply-colors`         | Apply color to selected mask     |
 
 
