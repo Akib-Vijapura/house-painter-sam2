@@ -10,29 +10,33 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python 3.13.5
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.13.5'
-    
-    - name: Install Beam CLI
-      run: pip install beam-cli
-    
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.BEAM_AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.BEAM_AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-    
-    - name: Login to Beam
-      run: beam login --client-id ${{ secrets.BEAM_CLIENT_ID }} --client-secret ${{ secrets.BEAM_CLIENT_SECRET }}
-    
-    - name: Upload Model Weights
-      run: beam storage upload server/models/sam2.1_hiera_large.pt model-weights/
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install Beam CLI
+        run: pip install beam-client beam-sdk
+      
+      - name: Create models directory
+        run: mkdir -p server/models
 
-    - name: Deploy to Beam
-      working-directory: ./server
-      run: beam deploy
+      - name: Download model weights (sam2.1_hiera_large.pt)
+        run: |
+          SAM2p1_BASE_URL="https://dl.fbaipublicfiles.com/segment_anything_2/092824"
+          curl -L -o server/models/sam2.1_hiera_large.pt "${SAM2p1_BASE_URL}/sam2.1_hiera_large.pt"
+
+      - name: Login to Beam
+        run: beam configure default --token ${{ secrets.BEAM_TOKEN }}
+        env:
+          BEAM_TOKEN: ${{ secrets.BEAM_TOKEN }}
+
+      - name: Upload Model Weights
+        # Path changed to match download location above
+        run: beam storage upload server/models/sam2.1_hiera_large.pt model-weights/
+
+      - name: Deploy to Beam
+        working-directory: ./server
+        run: beam deploy main.py:app
