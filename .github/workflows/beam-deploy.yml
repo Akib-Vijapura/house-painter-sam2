@@ -18,7 +18,7 @@ jobs:
           python-version: '3.10'
       
       - name: Install Beam CLI
-        run: pip install beam-client beam-sdk
+        run: pip install beam-client beam-sdk hydra
       
       - name: Create models directory
         run: mkdir -p server/models
