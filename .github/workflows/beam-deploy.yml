@@ -27,6 +27,9 @@ jobs:
         run: |
           SAM2p1_BASE_URL="https://dl.fbaipublicfiles.com/segment_anything_2/092824"
           curl -L -o server/models/sam2.1_hiera_large.pt "${SAM2p1_BASE_URL}/sam2.1_hiera_large.pt"
+          
+      - name: download requirements.txt
+        run: pip install -r server/requirements.txt
 
       - name: Login to Beam
         run: beam configure default --token ${{ secrets.BEAM_TOKEN }}
