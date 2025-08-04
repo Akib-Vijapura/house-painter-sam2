@@ -33,9 +33,9 @@ jobs:
         env:
           BEAM_TOKEN: ${{ secrets.BEAM_TOKEN }}
 
-      - name: Upload Model Weights
-        # Path changed to match download location above
-        run: beam volume upload server/models/sam2.1_hiera_large.pt model-weights/
+      # - name: Upload Model Weights
+      #   # Path changed to match download location above
+      #   run: beam volume upload server/models/sam2.1_hiera_large.pt model-weights/
 
       - name: Deploy to Beam
         working-directory: ./server
