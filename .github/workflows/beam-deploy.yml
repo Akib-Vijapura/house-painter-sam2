@@ -31,8 +31,8 @@ jobs:
       - name: download requirements.txt
         run: pip install -r server/requirements.txt
          
-      - name: download python-multipartt
-        run: pip install python-multipart
+      - name: download python-multipart
+        run: pip install python-multipart==0.0.14
         
       - name: install sam2
         run: pip install sam2
