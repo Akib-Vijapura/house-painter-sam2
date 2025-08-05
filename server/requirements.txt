@@ -4,7 +4,8 @@ numpy
 pillow
 Werkzeug==2.2.2
 hydra-core
-fastapi
+fastapi==0.115.3
+wheel
 tqdm
 python-multipart
 requests
