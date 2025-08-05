@@ -125,6 +125,13 @@ pip install -r requirements.txt
 python3 main.py
 ```
 
+### 3. Or Download Docker Image For Backend
+```bash
+docker pull akibv/fastapi-sam2
+docker run -d -p 8000:80 akibv/fastapi-sam2
+```
+Try: ```http://localhost:8000/health-check```
+
 ---
 
 ## 📡 API Endpoints (Sample)
