@@ -7,5 +7,4 @@ hydra-core
 fastapi==0.115.3
 wheel
 tqdm
-python-multipart
 requests
