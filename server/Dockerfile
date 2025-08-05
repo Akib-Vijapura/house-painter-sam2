@@ -1,22 +1,17 @@
-FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.10
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    python3 python3-pip git wget curl ffmpeg libsm6 libxext6 \
-    && rm -rf /var/lib/apt/lists/*
 
-# Create work directory
-WORKDIR /app
+WORKDIR /app/app
 
-# Copy everything
-COPY . /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install sam2
 
-# Install Python dependencies
-RUN pip3 install --upgrade pip
-RUN pip3 install -r requirements.txt
+COPY . .
 
-# Expose port
+# Create models folder and download the model at container startup (entrypoint)
+RUN mkdir -p models
+
 EXPOSE 8000
 
-# Run the Flask app
-CMD ["python3", "app.py"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

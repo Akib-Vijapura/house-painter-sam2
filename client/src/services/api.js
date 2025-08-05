@@ -5,19 +5,19 @@ const api = axios.create({
 });
 
 export const uploadImage = (formData) =>
-  api.post("/upload", formData, {
+  api.post("/api/upload", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 
 export const generateMasksService = (filename) =>
-  api.post(`${import.meta.env.VITE_API_BASE_URL}/masks/generate`, { filename });
+  api.post(`${import.meta.env.VITE_API_BASE_URL}/api/masks/generate`, { filename });
 
 export const getMaskAtPointsService = (requestData) =>
-  api.post(`${import.meta.env.VITE_API_BASE_URL}/masks/points`, requestData);
+  api.post(`${import.meta.env.VITE_API_BASE_URL}/api/masks/points`, requestData);
 
 export const applyColorsService = (requestData) => 
-  api.post(`${import.meta.env.VITE_API_BASE_URL}/image/apply-colors`, requestData);
+  api.post(`${import.meta.env.VITE_API_BASE_URL}/api/image/apply-colors`, requestData);
 
 export default api;

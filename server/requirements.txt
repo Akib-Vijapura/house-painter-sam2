@@ -1,8 +1,10 @@
 torch
 torchvision
-flask
-flask-cors
 numpy
 pillow
 Werkzeug==2.2.2
+hydra-core
 fastapi
+tqdm
+python-multipart
+requests

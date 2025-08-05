@@ -10,3 +10,5 @@ outputs/*
 checkpoints/*.pt
 /server/models/*.pt
 .idea
+models
+uploads
