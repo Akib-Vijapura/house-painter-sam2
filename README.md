@@ -107,6 +107,11 @@ cd house-painter-sam2
 ```
 
 ### 2. Frontend Setup
+Create ```.env``` file and give you backend URL to ```VITE_API_BASE_URL``` variable
+for example: 
+```bash
+VITE_API_BASE_URL=http://localhost:8000
+```
 
 ```bash
 cd client
