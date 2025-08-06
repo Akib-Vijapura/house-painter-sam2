@@ -51,7 +51,7 @@ def init_models():
     name="sam2-service",
     image=Image(python_packages=[
         "fastapi", "pillow", "numpy", "torch",
-        "requests", "sam2"
+        "requests", "sam2", "python-multipart"
     ]),
     on_start=init_models,
     cpu=4.0,
