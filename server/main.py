@@ -62,13 +62,15 @@ def init_models():
 )
 def web_server(context):
     app = FastAPI()
+    
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["https://house-painter-sam2.vercel.app"],
+        allow_origin_regex=r"^https://house-painter-sam2(-[\w-]+)?\.vercel\.app$",
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    
     app.mount("/uploads", StaticFiles(directory=UPLOAD_FOLDER), name="uploads")
 
     models = context.on_start_value
